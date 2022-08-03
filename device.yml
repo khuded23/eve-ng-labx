@@ -1,0 +1,118 @@
+dc1:
+  BGL_Hub:
+    hostname: "router1.bgl"
+    site_id: "20"
+    eve_port: "37770"
+    mgmt_intf: "e0/2"
+    vrf: "mgmt"
+    loopback: "loopback1"
+    loopback_ip: "2.2.2.2"
+    loopback_subnet: "255.255.255.255"
+    enabled_intf:
+      - name: "ethernet0/0"
+        ip: "10.0.10.20 255.255.255.0"
+        description: "VPLS: Connection"
+      - name: "ethernet0/1"
+        ip: "12.0.0.2 255.255.255.252"
+        description: "ISP:Connection to ISP"
+      - name: "ethernet0/2"
+        description: "Management interface"
+
+    bgpasn: "200"
+    bgppeers:
+      - ip: "12.0.0.1"
+        remote_as: "100"
+        description: "peer to ISP"
+
+    bgpadvert:
+      - network: "2.2.2.2"
+        mask: "255.255.255.255"
+
+
+  BOM_spoke:
+    hostname: "router1.bom"
+    site_id: "50"
+    eve_port: "37773"
+    mgmt_intf: "e0/2"
+    vrf: "mgmt"
+    loopback: "loopback1"
+    loopback_ip: "5.5.5.5"
+    loopback_subnet: "255.255.255.255"
+    enabled_intf:
+      - name: "ethernet0/0"
+        ip: "10.0.10.50 255.255.255.0"
+        description: "VPLS: Connection"
+      - name: "ethernet0/1"
+        ip: "15.0.0.2 255.255.255.252"
+        description: "ISP:Connection to ISP"
+      - name: "ethernet0/2"
+        description: "Management interface"
+
+    bgpasn: "500"
+    bgppeers:
+      - ip: "15.0.0.1"
+        remote_as: "100"
+        description: "peer to ISP"
+
+    bgpadvert:
+      - network: "5.5.5.5"
+        mask: "255.255.255.255"
+
+  SIN_spoke:
+    hostname: "router1.sin"
+    site_id: "30"
+    eve_port: "37771"
+    mgmt_intf: "e0/2"
+    vrf: "mgmt"
+    loopback: "loopback1"
+    loopback_ip: "3.3.3.3"
+    loopback_subnet: "255.255.255.255"
+    enabled_intf:
+      - name: "ethernet0/0"
+        ip: "10.0.10.30 255.255.255.0"
+        description: "VPLS: Connection"
+      - name: "ethernet0/1"
+        ip: "13.0.0.2 255.255.255.252"
+        description: "ISP:Connection to ISP"
+      - name: "ethernet0/2"
+        description: "Management interface"
+
+    bgpasn: "300"
+    bgppeers:
+      - ip: "13.0.0.1"
+        remote_as: "100"
+        description: "peer to ISP"
+
+    bgpadvert:
+      - network: "3.3.3.3"
+        mask: "255.255.255.255"
+
+
+  TKY_spoke:
+    hostname: "router1.tky"
+    site_id: "40"
+    eve_port: "37772"
+    mgmt_intf: "e0/2"
+    vrf: "mgmt"
+    loopback: "loopback1"
+    loopback_ip: "4.4.4.4"
+    loopback_subnet: "255.255.255.255"
+    enabled_intf:
+      - name: "ethernet0/0"
+        ip: "10.0.10.40 255.255.255.0"
+        description: "VPLS: Connection"
+      - name: "ethernet0/1"
+        ip: "14.0.0.2 255.255.255.252"
+        description: "ISP:Connection to ISP"
+      - name: "ethernet0/2"
+        description: "Management interface"
+
+    bgpasn: "400"
+    bgppeers:
+      - ip: "14.0.0.1"
+        remote_as: "100"
+        description: "peer to ISP"
+
+    bgpadvert:
+      - network: "4.4.4.4"
+        mask: "255.255.255.255"

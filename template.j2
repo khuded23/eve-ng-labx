@@ -1,0 +1,71 @@
+hostname {{hostname}}
+
+!
+ip vrf mgmt
+ description "management vrf"
+
+!
+
+username cisco password cisco
+enable secret cisco
+service password-encryption
+
+
+int {{loopback}}
+ip add {{loopback_ip}} {{loopback_subnet}}
+
+!
+
+ip domain-name labx.in
+ip ssh version 2
+ip scp server enable
+crypto key generate rsa general-keys modulus 1024
+
+!
+
+{% for int in enabled_intf -%}
+
+
+ {% if int.name == "ethernet0/2" -%}
+    interface {{int.name}}
+    ip vrf forwarding mgmt
+    ip address dhcp
+
+ {% else -%}
+    interface {{int.name}}
+    no shut
+    description {{int.description}}
+    ip address {{int.ip}}
+ {% endif -%}
+{% endfor -%}
+
+!
+!
+
+router bgp {{bgpasn}}
+
+{% for peer in bgppeers -%}
+neighbor {{peer.ip}} remote-as {{peer.remote_as}}
+neighbor {{peer.ip}} description {{peer.description}}
+   {% for cidr in bgpadvert -%}
+   network {{cidr.network}} mask {{cidr.mask}}
+   {% endfor -%}
+
+{% endfor -%}
+
+!
+!
+!
+!
+
+router ospf {{site_id}}
+router-id {{loopback_ip}}
+network 10.0.10.{{site_id}} 0.0.0.255 area 0
+network {{loopback_ip}} 0.0.0.0 area 0
+!
+!
+
+
+line vty 0 4
+ login
+ transport input ssh
